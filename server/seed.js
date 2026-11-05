@@ -71,6 +71,7 @@ const seedData = async () => {
     process.exit(0);
   } catch (error) {
     console.error('[Seed] Error seeding data:', error);
+    await disconnectDB();
     process.exit(1);
   }
 };

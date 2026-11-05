@@ -1,8 +1,9 @@
 const path = require('path');
+const readline = require('readline');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
-const { connectDB } = require('./config/db');
+const { connectDB, disconnectDB } = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 
 const app = express();
@@ -65,8 +66,33 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server after connecting to MongoDB
-let server;
+// Server and Process Lifecycle Management
+let server = null;
+let isShuttingDown = false;
+
+const gracefulShutdown = async (signal) => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+  console.log(`\n[ProductHub] Received ${signal}. Initiating graceful shutdown...`);
+
+  // Stop accepting new HTTP requests
+  if (server) {
+    await new Promise((resolve) => {
+      server.close(() => {
+        console.log('[ProductHub] HTTP server closed.');
+        resolve();
+      });
+    });
+  }
+
+  // Gracefully close MongoDB and stop embedded server
+  await disconnectDB();
+
+  console.log('[ProductHub] Clean shutdown completed.');
+  process.exit(0);
+};
+
+// Start Server
 const startServer = async () => {
   try {
     await connectDB();
@@ -88,20 +114,54 @@ const startServer = async () => {
       console.log(`  🔌 API Base: http://localhost:${PORT}/api/products`);
       console.log(`===============================================`);
     });
+
+    server.on('error', async (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`\n[ProductHub] ERROR: Port ${PORT} is already in use by another application or instance.`);
+        console.error(`Please stop the process using port ${PORT} or configure a different PORT in .env.`);
+      } else {
+        console.error('[ProductHub] Server error:', err.message);
+      }
+      await disconnectDB();
+      process.exit(1);
+    });
   } catch (error) {
     console.error('Failed to start server:', error.message);
+    await disconnectDB();
     process.exit(1);
   }
 };
 
-// Handle process termination cleanly
-process.on('SIGTERM', () => {
-  if (server) server.close(() => console.log('Process terminated'));
+// Register Termination Signals
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGHUP', () => gracefulShutdown('SIGHUP'));
+
+// Windows-specific Ctrl+C bridge
+if (process.platform === 'win32') {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+  rl.on('SIGINT', () => {
+    process.emit('SIGINT');
+  });
+}
+
+// Uncaught Exception and Unhandled Rejection Guards
+process.on('uncaughtException', async (err) => {
+  console.error('[ProductHub] Uncaught Exception:', err);
+  await gracefulShutdown('uncaughtException');
 });
 
-// Run server if called directly
+process.on('unhandledRejection', async (reason, promise) => {
+  console.error('[ProductHub] Unhandled Rejection at:', promise, 'reason:', reason);
+  await gracefulShutdown('unhandledRejection');
+});
+
+// Run server if executed directly
 if (require.main === module) {
   startServer();
 }
 
-module.exports = { app, startServer };
+module.exports = { app, startServer, gracefulShutdown };
