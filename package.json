@@ -1,0 +1,33 @@
+{
+  "name": "producthub",
+  "version": "1.0.0",
+  "description": "ProductHub - Complete Full-Stack Product Management System",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "seed": "node server/seed.js",
+    "capture-screenshots": "node scripts/capture-screenshots.js"
+  },
+  "keywords": [
+    "producthub",
+    "product-management",
+    "full-stack",
+    "express",
+    "mongodb",
+    "mongoose",
+    "rest-api"
+  ],
+  "author": "Internship Candidate",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.1.3",
+    "puppeteer-core": "^24.3.0"
+  }
+}

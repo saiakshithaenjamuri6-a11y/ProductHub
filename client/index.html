@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProductHub – Modern Product Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23193D31'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="brand-logo" id="brandLogo">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">ProductHub</span>
+            <span class="brand-tag">v1.0 • Enterprise</span>
+          </div>
+        </a>
+        <button class="btn-close-sidebar" id="closeSidebarBtn" aria-label="Close sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group-title">MAIN MENU</div>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <button class="nav-link active" data-tab="dashboard" id="navDashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="9"></rect>
+                <rect x="14" y="3" width="7" height="5"></rect>
+                <rect x="14" y="12" width="7" height="9"></rect>
+                <rect x="3" y="16" width="7" height="5"></rect>
+              </svg>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-tab="products" id="navProducts">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              <span>Products</span>
+              <span class="nav-badge" id="navProductCount">0</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-tab="analytics" id="navAnalytics">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              <span>Analytics</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-tab="settings" id="navSettings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="db-status-card">
+          <div class="status-indicator-dot online"></div>
+          <div class="status-info">
+            <span class="status-label">MongoDB System</span>
+            <span class="status-state" id="dbStatusText">Connected (Mongoose)</span>
+          </div>
+        </div>
+        <div class="intern-badge">
+          <div class="intern-avatar">AH</div>
+          <div class="intern-details">
+            <span class="intern-name">Product Manager</span>
+            <span class="intern-role">Full-Stack Internship</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+      <!-- Top Workspace Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="btn-hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="breadcrumbs">
+            <span class="breadcrumb-item">ProductHub</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-item current" id="breadcrumbCurrent">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="system-time" id="systemTime"></div>
+          <button class="btn btn-primary" id="openAddModalBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Add Product</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard View Content -->
+      <div class="tab-content active" id="viewDashboard">
+        <!-- Welcome Header -->
+        <section class="welcome-header">
+          <div class="welcome-text">
+            <h1 class="welcome-title">Product Overview</h1>
+            <p class="welcome-subtitle">
+              Monitor, analyze, and manage your complete product inventory with real-time MongoDB synchronization.
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-outline" id="refreshBtn" title="Refresh data">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              <span>Sync</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Summary Cards (Soft pastel dashboard cards) -->
+        <section class="metrics-grid">
+          <!-- Card 1: Total Products (Soft Sage Green) -->
+          <div class="metric-card sage-card">
+            <div class="metric-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+            </div>
+            <div class="metric-body">
+              <span class="metric-label">Total Products</span>
+              <div class="metric-value-row">
+                <span class="metric-value" id="statTotalProducts">0</span>
+                <span class="metric-subtext">Active in DB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Total Categories (Soft Lavender) -->
+          <div class="metric-card lavender-card">
+            <div class="metric-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <div class="metric-body">
+              <span class="metric-label">Total Categories</span>
+              <div class="metric-value-row">
+                <span class="metric-value" id="statTotalCategories">0</span>
+                <span class="metric-subtext">Distinct groups</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Total Inventory Value (Muted Peach) -->
+          <div class="metric-card peach-card">
+            <div class="metric-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="metric-body">
+              <span class="metric-label">Total Inventory Value</span>
+              <div class="metric-value-row">
+                <span class="metric-value" id="statTotalValue">₹0</span>
+                <span class="metric-subtext">Valuation</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Product Listing Section -->
+        <section class="products-section">
+          <!-- Section Toolbar -->
+          <div class="section-toolbar">
+            <div class="toolbar-title-group">
+              <h2 class="section-title">Catalogue Listing</h2>
+              <span class="listing-count-pill" id="showingCountBadge">Showing 0 products</span>
+            </div>
+
+            <!-- Controls Group: Search, Filter, Sort, View Toggle -->
+            <div class="controls-group">
+              <!-- Search by Name -->
+              <div class="search-input-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search by product name..." autocomplete="off">
+                <button type="button" class="btn-clear-search" id="clearSearchBtn" aria-label="Clear search" style="display:none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Sort Dropdown -->
+              <div class="sort-select-wrapper">
+                <select id="sortSelect" aria-label="Sort products">
+                  <option value="newest">Sort: Newest First</option>
+                  <option value="price-asc">Sort: Price: Low to High</option>
+                  <option value="price-desc">Sort: Price: High to Low</option>
+                  <option value="name-asc">Sort: Name (A-Z)</option>
+                  <option value="oldest">Sort: Oldest First</option>
+                </select>
+              </div>
+
+              <!-- View Toggle (Grid / List) -->
+              <div class="view-toggle" role="group" aria-label="View toggle">
+                <button class="btn-toggle active" id="viewGridBtn" title="Grid View" aria-pressed="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                </button>
+                <button class="btn-toggle" id="viewListBtn" title="List View" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="category-filters-scroll">
+            <div class="category-filters" id="categoryFilterContainer">
+              <button class="cat-pill active" data-category="all">
+                <span>All Categories</span>
+                <span class="cat-count" id="countAll">0</span>
+              </button>
+              <button class="cat-pill" data-category="Electronics">
+                <span>Electronics</span>
+              </button>
+              <button class="cat-pill" data-category="Fashion">
+                <span>Fashion</span>
+              </button>
+              <button class="cat-pill" data-category="Accessories">
+                <span>Accessories</span>
+              </button>
+              <button class="cat-pill" data-category="Home Decor">
+                <span>Home Decor</span>
+              </button>
+              <button class="cat-pill" data-category="Beauty">
+                <span>Beauty</span>
+              </button>
+              <button class="cat-pill" data-category="Food">
+                <span>Food</span>
+              </button>
+              <button class="cat-pill" data-category="Books">
+                <span>Books</span>
+              </button>
+              <button class="cat-pill" data-category="Other">
+                <span>Other</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Listing Container -->
+          <div class="products-container grid-view" id="productsContainer">
+            <!-- Products or Skeletons injected by JavaScript -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <circle cx="12" cy="12" r="4"></circle>
+              </svg>
+            </div>
+            <h3 class="empty-title" id="emptyTitle">No products found</h3>
+            <p class="empty-subtitle" id="emptySubtitle">There are currently no products matching your search or filter criteria.</p>
+            <div class="empty-actions">
+              <button class="btn btn-outline" id="emptyResetBtn">Reset Filters</button>
+              <button class="btn btn-primary" id="emptyAddBtn">+ Add New Product</button>
+            </div>
+          </div>
+
+          <!-- Error Message Banner -->
+          <div class="error-banner" id="errorBanner" style="display: none;">
+            <div class="error-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="error-content">
+              <h4 class="error-title">Unable to connect to backend API</h4>
+              <p class="error-message" id="errorMessage">Please check your server connection or database configuration.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" id="retryFetchBtn">Retry</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Analytics Tab View -->
+      <div class="tab-content" id="viewAnalytics">
+        <section class="welcome-header">
+          <div class="welcome-text">
+            <h1 class="welcome-title">Inventory Analytics</h1>
+            <p class="welcome-subtitle">Insights into category distribution, pricing spread, and portfolio valuation.</p>
+          </div>
+        </section>
+
+        <div class="analytics-layout">
+          <div class="analytics-card">
+            <h3 class="analytics-card-title">Category Distribution</h3>
+            <div class="category-bars" id="categoryBarsContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="analytics-card">
+            <h3 class="analytics-card-title">Valuation & Pricing Metrics</h3>
+            <div class="pricing-metrics-list">
+              <div class="metric-row">
+                <span class="m-label">Highest Priced Item:</span>
+                <span class="m-val" id="highestPriceItem">-</span>
+              </div>
+              <div class="metric-row">
+                <span class="m-label">Lowest Priced Item:</span>
+                <span class="m-val" id="lowestPriceItem">-</span>
+              </div>
+              <div class="metric-row">
+                <span class="m-label">Average Product Price:</span>
+                <span class="m-val" id="averagePriceVal">₹0</span>
+              </div>
+              <div class="metric-row">
+                <span class="m-label">Total Inventory Valuation:</span>
+                <span class="m-val highlight" id="analyticsTotalVal">₹0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Tab View -->
+      <div class="tab-content" id="viewSettings">
+        <section class="welcome-header">
+          <div class="welcome-text">
+            <h1 class="welcome-title">System Settings</h1>
+            <p class="welcome-subtitle">Configuration details, database connections, and REST API endpoints.</p>
+          </div>
+        </section>
+
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3 class="settings-card-title">Environment & Database</h3>
+            <div class="settings-info-list">
+              <div class="info-row">
+                <span class="info-label">Database Engine:</span>
+                <span class="info-val">MongoDB with Mongoose ODM</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Active Connection:</span>
+                <span class="info-val badge-green" id="settingsDbHost">mongodb://127.0.0.1:27017</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Currency Format:</span>
+                <span class="info-val">Indian Rupee (₹ INR)</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Application Version:</span>
+                <span class="info-val">1.0.0 (Production-Ready)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <h3 class="settings-card-title">REST API Endpoints</h3>
+            <div class="api-endpoints-table">
+              <div class="api-row"><span class="method get">GET</span><code>/api/products</code><span>Retrieve all products & stats</span></div>
+              <div class="api-row"><span class="method get">GET</span><code>/api/products/:id</code><span>Retrieve single product</span></div>
+              <div class="api-row"><span class="method post">POST</span><code>/api/products</code><span>Create new product</span></div>
+              <div class="api-row"><span class="method put">PUT</span><code>/api/products/:id</code><span>Update existing product</span></div>
+              <div class="api-row"><span class="method delete">DELETE</span><code>/api/products/:id</code><span>Delete product</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- ADD PRODUCT MODAL -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="addModalBackdrop">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="addModalTitle">Add New Product</h3>
+          <p class="modal-subtitle">Publish a new product item into your MongoDB inventory catalogue.</p>
+        </div>
+        <button class="modal-close-btn" id="closeAddModalBtn" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="addProductForm" novalidate>
+        <div class="modal-body">
+          <!-- Product Name -->
+          <div class="form-group">
+            <label class="form-label" for="addProductName">
+              Product Name <span class="required-star">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="addProductName" 
+              name="name" 
+              class="form-control" 
+              placeholder="e.g. Ergonomic Mechanical Keyboard"
+              required
+            >
+            <div class="form-error" id="addNameError"></div>
+          </div>
+
+          <!-- Price & Category Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="addProductPrice">
+                Price in Indian Rupees (₹) <span class="required-star">*</span>
+              </label>
+              <div class="input-prefix-wrapper">
+                <span class="input-prefix">₹</span>
+                <input 
+                  type="number" 
+                  id="addProductPrice" 
+                  name="price" 
+                  class="form-control with-prefix" 
+                  placeholder="4999" 
+                  min="0.01" 
+                  step="any" 
+                  required
+                >
+              </div>
+              <div class="form-error" id="addPriceError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="addProductCategory">
+                Category <span class="required-star">*</span>
+              </label>
+              <select id="addProductCategory" name="category" class="form-control" required>
+                <option value="" disabled selected>Select category...</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Food">Food</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="form-error" id="addCategoryError"></div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="form-label" for="addProductDescription">
+              Description <span class="required-star">*</span>
+            </label>
+            <textarea 
+              id="addProductDescription" 
+              name="description" 
+              rows="3" 
+              class="form-control" 
+              placeholder="Describe key features, specifications, materials, and warranty..."
+              required
+            ></textarea>
+            <div class="form-error" id="addDescriptionError"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelAddBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveAddBtn">
+            <span class="btn-spinner" id="addBtnSpinner" style="display:none;"></span>
+            <span class="btn-text">Save Product</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- EDIT PRODUCT MODAL -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="editModalBackdrop">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="editModalTitle">Edit Product</h3>
+          <p class="modal-subtitle">Update details for this catalogue product.</p>
+        </div>
+        <button class="modal-close-btn" id="closeEditModalBtn" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="editProductForm" novalidate>
+        <input type="hidden" id="editProductId" name="id">
+
+        <div class="modal-body">
+          <!-- Product Name -->
+          <div class="form-group">
+            <label class="form-label" for="editProductName">
+              Product Name <span class="required-star">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="editProductName" 
+              name="name" 
+              class="form-control" 
+              required
+            >
+            <div class="form-error" id="editNameError"></div>
+          </div>
+
+          <!-- Price & Category Row -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="editProductPrice">
+                Price in Indian Rupees (₹) <span class="required-star">*</span>
+              </label>
+              <div class="input-prefix-wrapper">
+                <span class="input-prefix">₹</span>
+                <input 
+                  type="number" 
+                  id="editProductPrice" 
+                  name="price" 
+                  class="form-control with-prefix" 
+                  min="0.01" 
+                  step="any" 
+                  required
+                >
+              </div>
+              <div class="form-error" id="editPriceError"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="editProductCategory">
+                Category <span class="required-star">*</span>
+              </label>
+              <select id="editProductCategory" name="category" class="form-control" required>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Food">Food</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="form-error" id="editCategoryError"></div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label class="form-label" for="editProductDescription">
+              Description <span class="required-star">*</span>
+            </label>
+            <textarea 
+              id="editProductDescription" 
+              name="description" 
+              rows="3" 
+              class="form-control" 
+              required
+            ></textarea>
+            <div class="form-error" id="editDescriptionError"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelEditBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveEditBtn">
+            <span class="btn-spinner" id="editBtnSpinner" style="display:none;"></span>
+            <span class="btn-text">Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- DELETE CONFIRMATION MODAL -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="deleteModalBackdrop">
+    <div class="modal-dialog modal-dialog-sm" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+      <div class="modal-header">
+        <div class="delete-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div>
+          <h3 class="modal-title" id="deleteModalTitle">Delete Product</h3>
+          <p class="modal-subtitle">This action cannot be undone.</p>
+        </div>
+        <button class="modal-close-btn" id="closeDeleteModalBtn" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p class="delete-confirmation-text">
+          Are you sure you want to permanently delete <strong id="deleteProductNameText" class="highlight-product-name">this product</strong> from your database?
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+          <span class="btn-spinner" id="deleteBtnSpinner" style="display:none;"></span>
+          <span class="btn-text">Delete Product</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
+  <!-- ======================================================== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Application Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
